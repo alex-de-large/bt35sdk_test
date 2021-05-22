@@ -1,5 +1,7 @@
 package com.example.bt35_sdk_test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.SurfaceView;
 
@@ -7,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.epson.moverio.hardware.camera.CameraDevice;
 import com.epson.moverio.hardware.camera.CameraManager;
+import com.epson.moverio.hardware.camera.CaptureDataCallback;
 import com.epson.moverio.hardware.camera.CaptureStateCallback;
 
 import java.io.IOException;
@@ -50,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
         mCameraManager.close(mCameraDevice);
     }
 
+    private CaptureDataCallback captureDataCallback = new CaptureDataCallback() {
+        @Override
+        public void onCaptureData(long l, byte[] bytes) {
+
+        }
+    };
+
     private CaptureStateCallback mCaptureStateCallback = new CaptureStateCallback() {
         @Override
         public void onCaptureStarted() {
@@ -86,4 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
+    public static Intent newIntent(Context context) {
+        return new Intent(context, MainActivity.class);
+    }
 }
