@@ -1,14 +1,89 @@
 package com.example.bt35_sdk_test;
 
+import android.os.Bundle;
+import android.view.SurfaceView;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import com.epson.moverio.hardware.camera.CameraDevice;
+import com.epson.moverio.hardware.camera.CameraManager;
+import com.epson.moverio.hardware.camera.CaptureStateCallback;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private CameraManager mCameraManager;
+    private CameraDevice mCameraDevice;
+    private SurfaceView mSurfaceView;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public final void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSurfaceView = findViewById(R.id.surface_view);
+        mCameraManager = new CameraManager(this);
+        try {
+            mCameraDevice = mCameraManager.open(mCaptureStateCallback, null, mSurfaceView.getHolder());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mCameraDevice.startCapture();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mCameraDevice.stopPreview();
+        mCameraDevice.stopCapture();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCameraManager.close(mCameraDevice);
+    }
+
+    private CaptureStateCallback mCaptureStateCallback = new CaptureStateCallback() {
+        @Override
+        public void onCaptureStarted() {
+            mCameraDevice.startPreview();
+        }
+
+        @Override
+        public void onCaptureStopped() {
+
+        }
+
+        @Override
+        public void onPreviewStarted() {
+
+        }
+
+        @Override
+        public void onPreviewStopped() {
+
+        }
+
+        @Override
+        public void onRecordStarted() {
+
+        }
+
+        @Override
+        public void onRecordStopped() {
+
+        }
+
+        @Override
+        public void onPictureCompleted() {
+
+        }
+    };
 }
