@@ -11,4 +11,16 @@
         android:layout_height="match_parent"
         android:id="@+id/surface_view"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="50dp"
+        android:minHeight="30dp"
+        android:textSize="22sp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:text="@string/data"/>
+
 </FrameLayout>

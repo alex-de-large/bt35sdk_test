@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.epson.moverio.hardware.camera.CameraDevice;
 import com.epson.moverio.hardware.camera.CameraManager;
+import com.epson.moverio.hardware.camera.CameraProperty;
 import com.epson.moverio.hardware.camera.CaptureDataCallback;
 import com.epson.moverio.hardware.camera.CaptureStateCallback;
 
@@ -18,7 +19,14 @@ public class MainActivity extends AppCompatActivity {
 
     private CameraManager mCameraManager;
     private CameraDevice mCameraDevice;
+    private CameraProperty cameraProperty;
     private SurfaceView mSurfaceView;
+
+    private QrCodeReader qrCodeReader;
+
+    private int width = 2592;
+    private int height = 1944;
+    private int fps = 15;
 
     @Override
     public final void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        cameraProperty = mCameraDevice.getProperty();
+        cameraProperty.setCaptureSize(width, height);
+        cameraProperty.setCaptureFps(fps);
+        mCameraDevice.setProperty(cameraProperty);
+
+        qrCodeReader = new QrCodeReader();
     }
 
     @Override

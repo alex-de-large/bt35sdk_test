@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">bt35_sdk_test</string>
+
+    <string name="data">data</string>
 </resources>
