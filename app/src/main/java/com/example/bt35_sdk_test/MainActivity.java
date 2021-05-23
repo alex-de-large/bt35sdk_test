@@ -2,6 +2,8 @@ package com.example.bt35_sdk_test;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.SurfaceView;
 
@@ -70,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
     private CaptureDataCallback captureDataCallback = new CaptureDataCallback() {
         @Override
         public void onCaptureData(long l, byte[] bytes) {
-
+            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            Bitmap mutableBitmap = bmp.copy(Bitmap.Config.RGB_565, true);
         }
     };
 

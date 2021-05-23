@@ -1,5 +1,7 @@
 package com.example.bt35_sdk_test;
 
+import android.graphics.Bitmap;
+
 import com.google.mlkit.vision.barcode.Barcode;
 import com.google.mlkit.vision.barcode.BarcodeScanner;
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
@@ -28,17 +30,11 @@ public class QrCodeReader {
         barcodeScanner = BarcodeScanning.getClient(options);
     }
 
-    public void scan(byte[] data, int width, int height, int rotation) {
+    public void scan(Bitmap bitmap, int rotation) {
 
     }
 
-    private InputImage getImage(byte[] data, int width, int height, int rotation) {
-        return InputImage.fromByteArray(
-                data,
-                width,
-                height,
-                rotation,
-                InputImage.IMAGE_FORMAT_NV21
-        );
+    private InputImage getImage(Bitmap bitmap, int rotation) {
+        return InputImage.fromBitmap(bitmap, rotation);
     }
 }
